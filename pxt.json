@@ -1,7 +1,7 @@
 {
-    "name": "Template",
+    "name": "Sprout Academia",
     "version": "1.0.0",
-    "description": "Use this as a template for minecraft education extensions!",
+    "description": "Additional tools for Sporut Academia instructors.",
     "dependencies": {
         "core": "*",
         "builder": "*"
