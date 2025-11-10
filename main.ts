@@ -1,48 +1,80 @@
-// This represent the color, title and icon of our extension button.
-//% color="#00ffff" block="Sprout" icon="\uf3ff"
+//% color=#ff8000 icon="\uf0c0" block="Roll Call"
 namespace SproutAcademia {
+    let players: string[] = []
 
-    let rollCall: string[] = [];
-
-    /**
-     * Clears the roll call list.
-     */
-    //% block="Clear roll call list."
-    export function clear(): void {
-        rollCall = [];
-    }
-
-    /**
-     * Registers the current player's name in the roll call list.
-     * If they are already registered, nothing happens.
-     */
-    //% block="register my name for roll call"
-    export function registerMe(): void {
-        const name = player.name();
-        if (!name) return;
-
-        // avoid duplicates
-        for (let i = 0; i < rollCall.length; i++) {
-            if (rollCall[i] == name) {
-                return;
-            }
+    //
+    // Internal: listen for "join" in chat
+    // Students will type: join
+    //
+    player.onChat("join", function () {
+        const name = player.name()
+        if (players.indexOf(name) < 0) {
+            players.push(name)
+            // Optional: give feedback in chat
+            player.say(name + " has been registered for roll call.")
         }
-        rollCall.push(name);
+    })
+
+    //
+    // BLOCKS
+    //
+
+    /**
+     * Number of registered players.
+     */
+    //% block="number of registered players"
+    //% weight=90
+    export function playerCount(): number {
+        return players.length
     }
 
     /**
-     * Gets a list of all registered player names.
+     * Get registered player name at position (1-based index).
      */
-    //% block="get roll call names"
-    export function getNames(): string[] {
-        return rollCall;
+    //% block="registered player at position %index"
+    //% index.min=1
+    //% weight=80
+    export function getPlayerAt(index: number): string {
+        index = Math.floor(index) - 1
+        if (index < 0 || index >= players.length) return ""
+        return players[index]
     }
 
     /**
-     * Gets how many players are currently registered.
+     * Get array of all registered player names.
      */
-    //% block="roll call count"
-    export function count(): number {
-        return rollCall.length;
+    //% block="registered players list"
+    //% weight=70
+    export function getPlayers(): string[] {
+        // Return the actual array so it can be used in array blocks
+        return players
+    }
+
+    /**
+     * Get a comma-separated string of all registered players.
+     */
+    //% block="registered players as text"
+    //% weight=60
+    export function getPlayersText(): string {
+        if (players.length == 0) return ""
+        return players.join(", ")
+    }
+
+    /**
+     * Clear the registration list.
+     */
+    //% block="clear registered players"
+    //% weight=50
+    export function clearPlayers(): void {
+        players = []
+    }
+
+    /**
+     * Check if a given name is registered.
+     */
+    //% block="is player %name registered"
+    //% weight=40
+    export function isRegistered(name: string): boolean {
+        return players.indexOf(name) >= 0
     }
 }
