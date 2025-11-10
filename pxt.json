@@ -1,7 +1,7 @@
 {
-    "name": "Sprout Academia",
+    "name": "Sprout Academia Quiz",
     "version": "1.0.0",
-    "description": "Additional tools for Sporut Academia instructors.",
+    "description": "Quiz tool for Sprout Academia instructors.",
     "dependencies": {
         "core": "*",
         "builder": "*"
