@@ -21,10 +21,14 @@ namespace SproutAcademia {
     //
     function escapeTitleText(text: string): string {
         if (!text) return ""
-        // Replace internal double quotes with single quotes
-        text = text.replace(/"/g, `'`)
-        // Remove control characters like newlines
-        text = text.replace(/\r?\n|\r/g, " ")
+
+        // Replace all double quotes " with single quotes '
+        text = text.split("\"").join("'")
+
+        // Remove line breaks (replace with spaces)
+        text = text.split("\n").join(" ")
+        text = text.split("\r").join(" ")
+
         return text
     }
 
