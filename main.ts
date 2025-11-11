@@ -28,17 +28,13 @@ namespace SproutAcademia {
      * Add a multiple choice question with 4 options.
      * correct is 1–4 (1 = A, 2 = B, 3 = C, 4 = D)
      */
-    //% block="add quiz question $qText | A $a | B $b | C $c | D $d | correct option $correct"
+    //% block="add quiz question $qText | A $a | B $b | C $c | D $d | correct option $correct | time limit (s) $seconds"
     //% qText.shadow=text a.shadow=text b.shadow=text c.shadow=text d.shadow=text
     //% correct.min=1 correct.max=4
-    export function addQuestion(
-        qText: string,
-        a: string,
-        b: string,
-        c: string,
-        d: string,
-        correct: number
-    ): void {
+    //% seconds.min=1 seconds.max=300
+    //% group="Setup"
+    export function addQuestion(qText: string, a: string, b: string, c: string, d: string, correct: number): void {
+        
         if (correct < 1 || correct > 4) {
             correct = 1
         }
