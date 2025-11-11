@@ -76,7 +76,7 @@ namespace SproutAcademia {
     }
 
     function timeUp() {
-        showTitle("⏰ Time's up!", "No more answers for this question.")
+        showTitle("⏰ Time's up!", "No more answers for this question.", 3)
         // Move to next question or finish
         if (currentIndex < questionTexts.length - 1) {
             currentIndex += 1
@@ -87,7 +87,7 @@ namespace SproutAcademia {
     }
 
     function finishQuiz() {
-        showTitle("Quiz finished!", "Score: " + score + " / " + questionTexts.length)
+        showTitle("Quiz finished!", "Score: " + score + " / " + questionTexts.length, 5)
         player.say("Quiz finished!")
         player.say("Your score: " + score + " / " + questionTexts.length)
         currentIndex = -1
