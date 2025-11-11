@@ -11,12 +11,5 @@
         "main.ts",
         "README.md"
     ],
-    "targetVersions": {
-        "target": "1.7.21",
-        "targetId": "minecraft"
-    },
-    "supportedTargets": [
-        "minecraft"
-    ],
     "preferredEditor": "tsprj"
 }

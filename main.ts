@@ -1,5 +1,21 @@
-//% color="#00ffff" block="Quiz" icon="\uf3ff"
+/**
+* Use this file to define custom functions and blocks.
+* Read more at https://minecraft.makecode.com/blocks/custom
+*/
+
+enum MyEnum {
+    //% block="one"
+    One,
+    //% block="two"
+    Two
+}
+
+/**
+ * Custom blocks
+ */
+//% weight=100 color=#00ffff icon=""
 namespace SproutAcademia {
+
     // Internal storage (using var for maximum compatibility)
     var questionTexts: string[] = []
     var optionA: string[] = []
@@ -9,16 +25,22 @@ namespace SproutAcademia {
     var correctOption: number[] = [] // 1–4
 
     /**
-     * Get the text of the question at the given position (1 = first question).
-     * Returns empty text "" if the index is out of range.
+     * TODO: describe your function here
+     * @param n describe parameter here, eg: 5
+     * @param s describe parameter here, eg: "Hello"
+     * @param e describe parameter here
      */
-    //% block="Question text at position %index"
-    //% index.min=1
-    export function getQuestionText(index: number): string {
-        let i = index - 1
-        if (i < 0 || i >= questionTexts.length) {
-            return ""
-        }
-        return questionTexts[i]
+    //% block
+    export function foo(n: number, s: string, e: MyEnum): void {
+        // Add code here
+    }
+
+    /**
+     * TODO: describe your function here
+     * @param value describe value here, eg: 5
+     */
+    //% block
+    export function fib(value: number): number {
+        return value <= 1 ? value : fib(value -1) + fib(value - 2);
     }
 }
