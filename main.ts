@@ -1,4 +1,4 @@
-//% color=#ffa500 icon="\uf128" block="Quiz"
+//% color="#00ffff" block="Quiz" icon="\uf3ff"
 namespace SproutAcademia {
     // Internal storage (using var for maximum compatibility)
     var questionTexts: string[] = []
