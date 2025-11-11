@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "Quiz tool for Sprout Academia instructors.",
     "dependencies": {
+        "minecraft": "github:Microsoft/pxt-minecraft",
         "core": "*",
         "builder": "*"
     },
