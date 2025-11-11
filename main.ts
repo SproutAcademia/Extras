@@ -14,7 +14,6 @@ namespace SproutAcademia {
     // Quiz state
     let currentIndex = -1
     let score = 0
-    let questionEndTime = 0
     let timerActive = false
 
     //
@@ -55,18 +54,19 @@ namespace SproutAcademia {
         player.say("4) " + optionD[currentIndex])
 
         if (tLimit > 0) {
-            player.say("You have " + tLimit + " seconds. Type 1, 2, 3 or 4 in chat.")
-            questionEndTime = control.millis() + tLimit * 1000
+            player.say("You have " + tLimit + " seconds to answer.")
             timerActive = true
+            let elapsed = 0
 
-            control.inBackground(function () {
-                while (timerActive && currentIndex >= 0) {
-                    if (control.millis() >= questionEndTime) {
-                        timerActive = false
-                        timeUp()
-                        break
-                    }
-                    basic.pause(200)
+            // Run the timer in background
+            loops.runInBackground(function () {
+                while (timerActive && elapsed < tLimit) {
+                    loops.pause(1000)
+                    elapsed++
+                }
+                if (timerActive) {
+                    timerActive = false
+                    timeUp()
                 }
             })
         } else {
@@ -76,7 +76,7 @@ namespace SproutAcademia {
     }
 
     function timeUp() {
-        showTitle("Time's up!", "No more answers for this question.")
+        showTitle("⏰ Time's up!", "No more answers for this question.")
         // Move to next question or finish
         if (currentIndex < questionTexts.length - 1) {
             currentIndex += 1
@@ -94,17 +94,16 @@ namespace SproutAcademia {
         timerActive = false
     }
 
-    //% block="Handle Answer"
-    //% group="Setup"
-    function handleAnswer(option: number) {
+    //% block="handle answer %option"
+    //% option.min=1 option.max=4
+    //% group="Control"
+    export function handleAnswer(option: number) {
         if (currentIndex < 0 || currentIndex >= questionTexts.length) {
             player.say("No active question.")
             return
         }
 
-        // If there is a timer, check if we're already out of time
-        if (timerActive && control.millis() > questionEndTime) {
-            timerActive = false
+        if (!timerActive && timeLimitSeconds[currentIndex] > 0) {
             player.say("Too late, time is up.")
             return
         }
@@ -229,4 +228,3 @@ namespace SproutAcademia {
         return currentIndex + 1
     }
 }
-
