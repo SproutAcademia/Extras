@@ -1,6 +1,6 @@
 {
     "name": "Sprout Academia Quiz",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "Quiz tool for Sprout Academia Instructors.",
     "dependencies": {
         "core": "*",

@@ -193,13 +193,7 @@ namespace SproutAcademia {
         }
     }
 
-    //
-    // BLOCKS: Control
-    //
-    //% block="handle answer %option"
-    //% option.min=1 option.max=4
-    //% group="Control"
-    export function handleAnswer(option: number) {
+    function handleAnswer(option: number) {
         if (currentIndex < 0 || currentIndex >= questionTexts.length) {
             player.say("No active question.")
             return
@@ -213,9 +207,9 @@ namespace SproutAcademia {
         const correct = correctOption[currentIndex]
         if (option == correct) {
             score++
-            showTitle("✅ Correct!", "Score: " + score + " / " + questionTexts.length, 3)
+            showTitle("Correct!", "Score: " + score + " / " + questionTexts.length, 3)
         } else {
-            showTitle("❌ Incorrect", "Correct answer was option " + correct, 3)
+            showTitle("Incorrect", "Correct answer was option " + correct, 3)
         }
 
         // Move to next question or finish
@@ -227,6 +221,9 @@ namespace SproutAcademia {
         }
     }
 
+    //
+    // BLOCKS: Control
+    //
     /**
      * Start the quiz from the first question.
      */
