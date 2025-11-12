@@ -19,19 +19,6 @@ namespace SproutAcademia {
     //
     // Helpers
     //
-    function escapeTitleText(text: string): string {
-        if (!text) return ""
-
-        // Replace all double quotes " with single quotes '
-        text = text.split("\"").join("'")
-
-        // Remove line breaks (replace with spaces)
-        text = text.split("\n").join(" ")
-        text = text.split("\r").join(" ")
-
-        return text
-    }
-
     function showTitle(main: string, sub: string, durationSeconds: number) {
         // Convert seconds to ticks (20 ticks = 1 second)
         // We'll keep a short fade-in/out for smooth transitions
@@ -39,14 +26,10 @@ namespace SproutAcademia {
         let stay = Math.max(durationSeconds * 20, 40) // ensure at least 2s visible
         let fadeOut = 20 // 1 second
 
-        // Clean text before showing
-        const safeMain = escapeTitleText(main)
-        const safeSub = escapeTitleText(sub)
-
         // Apply title timing and display the text
         player.execute(`title @a times ${fadeIn} ${stay} ${fadeOut}`)
-        player.execute(`title @a title "${safeMain}"`)
-        player.execute(`title @a subtitle "${safeSub}"`)
+        player.execute(`title @a title "${main}"`)
+        player.execute(`title @a subtitle "${sub}"`)
     }
 
     function askCurrentQuestion() {
