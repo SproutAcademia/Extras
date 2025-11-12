@@ -90,41 +90,9 @@ namespace SproutAcademia {
         timerActive = false
     }
 
-    //% block="handle answer %option"
-    //% option.min=1 option.max=4
-    //% group="Control"
-    export function handleAnswer(option: number) {
-        if (currentIndex < 0 || currentIndex >= questionTexts.length) {
-            player.say("No active question.")
-            return
-        }
-
-        if (!timerActive && timeLimitSeconds[currentIndex] > 0) {
-            player.say("Too late, time is up.")
-            return
-        }
-
-        const correct = correctOption[currentIndex]
-        if (option == correct) {
-            score++
-            showTitle("✅ Correct!", "Score: " + score + " / " + questionTexts.length, 3)
-        } else {
-            showTitle("❌ Incorrect", "Correct answer was option " + correct, 3)
-        }
-
-        // Move to next question or finish
-        if (currentIndex < questionTexts.length - 1) {
-            currentIndex += 1
-            askCurrentQuestion()
-        } else {
-            finishQuiz()
-        }
-    }
-
     //
     // BLOCKS: Setup
     //
-
     /**
      * Clear all questions and reset the quiz.
      */
@@ -143,37 +111,37 @@ namespace SproutAcademia {
         timerActive = false
     }
 
-/**
- * Add a multiple choice question with 2–4 options.
- * correct is 1–4 (1 = A, 2 = B, 3 = C, 4 = D)
- * seconds = 0 means no time limit.
- */
-//% block="add quiz question $qText | A $a | B $b | (opt) C $c | (opt) D $d | correct option $correct | time limit (s) $seconds"
-//% qText.shadow=text a.shadow=text b.shadow=text c.shadow=text d.shadow=text
-//% correct.min=1 correct.max=4
-//% seconds.min=0 seconds.max=300
-//% group="Setup"
-export function addQuestionTimed(
-    qText: string,
-    a: string,
-    b: string,
-    c?: string,
-    d?: string,
-    correct?: number,
-    seconds?: number
-): void {
-    if (correct == undefined) correct = 1
-    if (seconds == undefined || seconds < 0) seconds = 0
+    /**
+    * Add a multiple choice question with 2–4 options.
+    * correct is 1–4 (1 = A, 2 = B, 3 = C, 4 = D)
+    * seconds = 0 means no time limit.
+    */
+    //% block="add quiz question $qText | A $a | B $b | (opt) C $c | (opt) D $d | correct option $correct | time limit (s) $seconds"
+    //% qText.shadow=text a.shadow=text b.shadow=text c.shadow=text d.shadow=text
+    //% correct.min=1 correct.max=4
+    //% seconds.min=0 seconds.max=300
+    //% group="Setup"
+    export function addQuestionTimed(
+        qText: string,
+        a: string,
+        b: string,
+        c?: string,
+        d?: string,
+        correct?: number,
+        seconds?: number
+    ): void {
+        if (correct == undefined) correct = 1
+        if (seconds == undefined || seconds < 0) seconds = 0
 
-    // fill missing options with empty strings
-    optionA.push(a || "")
-    optionB.push(b || "")
-    optionC.push(c || "")
-    optionD.push(d || "")
-    questionTexts.push(qText)
-    correctOption.push(correct)
-    timeLimitSeconds.push(seconds)
-}
+        // fill missing options with empty strings
+        optionA.push(a || "")
+        optionB.push(b || "")
+        optionC.push(c || "")
+        optionD.push(d || "")
+        questionTexts.push(qText)
+        correctOption.push(correct)
+        timeLimitSeconds.push(seconds)
+    }
 
     /**
      * Load quiz questions from text, one question per line:
@@ -228,6 +196,36 @@ export function addQuestionTimed(
     //
     // BLOCKS: Control
     //
+    //% block="handle answer %option"
+    //% option.min=1 option.max=4
+    //% group="Control"
+    export function handleAnswer(option: number) {
+        if (currentIndex < 0 || currentIndex >= questionTexts.length) {
+            player.say("No active question.")
+            return
+        }
+
+        if (!timerActive && timeLimitSeconds[currentIndex] > 0) {
+            player.say("Too late, time is up.")
+            return
+        }
+
+        const correct = correctOption[currentIndex]
+        if (option == correct) {
+            score++
+            showTitle("✅ Correct!", "Score: " + score + " / " + questionTexts.length, 3)
+        } else {
+            showTitle("❌ Incorrect", "Correct answer was option " + correct, 3)
+        }
+
+        // Move to next question or finish
+        if (currentIndex < questionTexts.length - 1) {
+            currentIndex += 1
+            askCurrentQuestion()
+        } else {
+            finishQuiz()
+        }
+    }
 
     /**
      * Start the quiz from the first question.
@@ -288,26 +286,26 @@ export function addQuestionTimed(
     })
 
     player.onChat("2", function () {
-        handleAnswer(1)
+        handleAnswer(2)
     })
 
     player.onTellCommand("2", function () {
-        handleAnswer(1)
+        handleAnswer(2)
     })
 
     player.onChat("3", function () {
-        handleAnswer(1)
+        handleAnswer(3)
     })
 
     player.onTellCommand("3", function () {
-        handleAnswer(1)
+        handleAnswer(3)
     })
 
     player.onChat("4", function () {
-        handleAnswer(1)
+        handleAnswer(4)
     })
 
     player.onTellCommand("4", function () {
-        handleAnswer(1)
+        handleAnswer(4)
     })
 }
